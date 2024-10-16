@@ -25,12 +25,12 @@ export default function UserSearch() {
     setSelectedUser(option ? option.user : null)
   }
 
-  // // Function to update the selectedUser data after saving
-  // const handleSave = (id: string, newUserData: Partial<User>) => {
-  //   if(selectedUser && selectedUser.id === id){
-  //     setSelectedUser({ ...selectedUser, ...newUserData})
-  //   }
-  // }
+  // Function to update the selectedUser data after saving
+  const handleSave = (id: string, newUserData: Partial<User>) => {
+    if(selectedUser && selectedUser.id === id){
+      setSelectedUser({ ...selectedUser, ...newUserData})
+    }
+  }
 
   return (
     <div className="space-y-6">
@@ -41,7 +41,8 @@ export default function UserSearch() {
         placeholder="Search for a user..."
         className="w-full max-w-md mx-auto"
       />
-      {selectedUser && <UserCard user={selectedUser}  />}
+      {/* {selectedUser && <UserCard user={selectedUser} onSave={handleSave} />} */}
+      {selectedUser && <UserCard user={selectedUser} />}
     </div>
   )
 }

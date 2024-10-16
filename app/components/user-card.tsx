@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Phone, Mail, MapPin } from 'lucide-react'
 // import { Dialog } from '@radix-ui/react-dialog'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { set } from 'date-fns'
 
@@ -48,7 +48,29 @@ export function UserCard({ user }: UserCardProps) {
     console.log("Updated User Data: ", formData);
     setUserData(formData); // Update displayed data
     setDialogOpen(false);
+
+    // // Clear the form data after saving
+    // setFormData({
+    //   id: '',
+    //   name: '',
+    //   phoneNumber: '',
+    //   email: '',
+    //   location: ''
+    // });
   };
+
+  // Reset formData whenever a new user is selected
+  useEffect(() => {
+    setUserData(user);
+    setFormData({
+      id: user.id, 
+      name: user.name, 
+      phoneNumber: user.phoneNumber, 
+      email: user.email || '', 
+      location: user.location || '', 
+
+    });
+  }, [user]);
 
 
 
@@ -58,7 +80,7 @@ export function UserCard({ user }: UserCardProps) {
       <CardHeader className="flex flex-row items-center gap-4">
         <Avatar className="w-16 h-16">
           <AvatarImage src={`https://api.dicebear.com/6.x/initials/svg?seed=${user.name}`} alt={user.name} />
-          <AvatarFallback>{userData.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+          <AvatarFallback>{user.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
         </Avatar>
         <div className="flex flex-col">
           <CardTitle className="text-2xl">{userData.name}</CardTitle>
